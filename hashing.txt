@@ -1,0 +1,69 @@
+Bonus Assignment:
+	Hashing is defined as the process of using a search key to find a (hopefully unique) index into a list. This is accomplished usually through the use of a hash function. A hash function is a mathematical function specifically designed to convert a key into a (hopefully) unique position(hash key) in the list.
+
+	With an array based implementation of a list, use of hash techniques will (hopefully) allow direct access to the array location where the desired item should reside  giving in theory O(1) access to all elements within the structure.
+
+	A minor  problem sometimes occurs when two unique keys, when put through the hash function, are translated to the same array location. This is called a collision. The number of collisions which occur are directly related to two things. The first and primary is the effectiveness of the hash function in returning a unique value. The second is the % of occupancy in the array used as the hash table.
+
+There are a number of policies that have been designed to deal with collisions. These are called collision resolution policies, hereby known as CRP’s. Possible CRP’s are
+
+	1) 	storing the item in the next available array location (either above or below the hash value, but not both) (known as Linear Probing)
+	2) 	altering the hash value (supplied by the hash function) in a predetermined manner and calling the hash function or a rehash function again (known as Rehashing). 
+	3) 	storing a pointer to a linked list within the struct contained in the array. All collisions will reside in a linked list based in the original hash values node (known as Chaining)
+	4) 	allowing more than one element to be associated with a particular hash value. Now each element in the array has room for more than 1 struct (becomes a 2-d array) (known as Bucketing)
+5) 	taking the original hash value and adding successive values of an arbitrary quadratic polynomial to the starting value(Quadratic Probing)
+
+
+	and there are a few more. 
+	Anyway your job, using your extensive knowledge of Data Structures, is to come up with an ADTLIST to be used for implementing a (hopefully direct-access based hash table). Your ADT must be able to be implemented using character keys. Therefore the hash function should take a string and convert it into an integer index in the array. Collisions will be handled by any of the above methods except linear probing (see me for exact specifications). The client should never know when a collision occurs, nor should they ever know that the List they are using is implemented as a hash table. (All this should be kept internal in the ADT and set up that way.)
+
+	Also internally within the ADT, you should keep track of the number of times a collision occurs and print this to the screen each time the ADT is utilized by a client. 
+
+CLIENT:
+
+	Your client should parse a standard text file reading words. Each word should be stored in an ADTlist( implemented via a hash table) along with the number of times they were found in the file.
+
+
+
+
+
+
+ADDITIONAL REQUIREMENTS 
+Words will be denoted by whitespace, commas, periods, semi-colons, colons, parenthesis, braces, quotes(single and double) or any relational operator.
+
+Words must begin with a letter and can contain digits and underscores
+
+Digits alone, a series of digits or anything beginning with a digit is NOT a word.
+
+The client should not be case sensitive, nor should punctuation or syntax(in the case of C++ programs) differentiate words.
+
+Ex  THE   the   the; are all counted as the same word.
+
+
+OUTPUT: (to a file called “Stats.out”)
+
+
+It should first print the name of the input file.  The total number of words(non-unique) found in the file and the total number of unique words in the file. It should then print a list of all unique words encountered along with the number of times they occur in the file.
+
+It should then print the following statistics. (To aid in your calculations you can utilize class methods and additional PDM’s to calculate and print these. Please document these as such.)
+
+1) It should print the CRP that was used.
+2) It should print the number of INITIAL collisions(those on the first search)
+3) It should print the number of subsequent collisions( those occurring when the hash key is occupied)
+4) It should print the total number of collisions.(those on first and those on subsequent searches.
+5) It should print the percentage of occupancy of the array.  
+For example If 500 words were found in the file and they occupied 250 array locations of an array that holds a maximum of 1000 elements. The percentage of occupancy would be 25%.
+
+NOTE: Please use constants appropriately so that I can easily change the size of the array used and check collisions when seeking various percentages of occupancy.
+
+Deliverables:
+
+
+Order of submission.
+ADTlist.h
+ADTList.cpp
+Client.cpp
+Stats.out.
+Writeup(word file) explaining the design of your hash function and an analysis of the effectiveness of the function along with the effectiveness of the assigned CRP. 
+	
+For your initial run of the program use the following parameters.  Use a .txt version of this file for input and an array size of 500. Then modify the parameter of array size and decrease by 100 for each run until you achieve 80% occupancy within the array and use these results to measure the effectiveness of your hashing algorithm. The effectiveness of the CRP would be measured by the increases in the subsequent collisions as the percentage of occupancy within the array is increased.  Present the information from the different runs of your program in a table within the word file and use this  a basis for your analysis of effectiveness of both the hash function and CRP.
